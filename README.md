@@ -5,7 +5,39 @@
 [![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
 [![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Данный проект реализует один метод POST который записывает или обновляет данные
+продукции:
+{
+"product": [{
+"unid": "100108",
+"quantity": "1",
+"scu": "scu_1",
+"barcode": "5611165446415",
+"warehouse": "Склад на Софии",
+"size": "L"
+}]
+}
+
+проверять возможность приема запросов от источника (принимать запрос только при наличии ключа);
+Ключи находятся в таблице User поле key
+Наличие ключа позволяет пользователю работать с добавлением /редактированием товара и склада где он находиться
+(Склад если не существует - добавляется новый)
+Таблица склада и таблица продуктов связаны между собою.
+
+БД помимо миграций добавлена выгрузка структуры.
+
+Для ручной инсталляции необходимо выполнить :
+1) Создать БД (название не принципиально , главное чтобы все настройки были в файле .env (файл с примером прилагается)
+2) Сгенерировать токены или заполнить 32 символа в APP_KEY=094567124734873456532645194634526732902 файла .env
+3) Установить таблица из файла sql.sql (что в корне проекта)
+4) Создать пользователя (принципиально можно заполнить его Имя и ключ key который быдет служить ключем токена)
+5) По возможности создать склады и товары, или сразу с помощью POSTMAN отправить :
+5.1) Заголовки Headers c Ключем "Authorization",(без кавычек).
+5.2) Значением сгенерированного ТОКЕНА из БД User поля key.
+5.3) В тело (Body) вставить JSON структуру (см. выше).
+5.4) Заполнить поле отправки согласно Вашего сайта или локального домена http://YOUR-HOST/api/product
+6) В случае неправильного ТОКЕНА будет ошибка вида 403 - Доступ запрещен
+В случае успеха 201 {'error':'no'} 
 
 ## Official Documentation
 
