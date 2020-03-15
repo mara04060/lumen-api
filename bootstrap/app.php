@@ -110,4 +110,10 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+//$app->configureMonologUsing(function($monolog) {
+//    $monolog->pushHandler(...);
+//
+//    return $monolog;
+//});
+
 return $app;

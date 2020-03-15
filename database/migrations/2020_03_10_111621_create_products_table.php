@@ -42,6 +42,8 @@ class CreateProductsTable extends Migration
             $table->timestamps();
         });
 
+
+
     }
 
     /**
@@ -54,5 +56,6 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('warhouses');
         Schema::dropIfExists('products');
         Schema::dropIfExists('users');
+
     }
 }

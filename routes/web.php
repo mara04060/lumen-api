@@ -20,7 +20,3 @@ $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($ro
     $router->post('/product',  ['as' => 'product', 'uses' => 'Controller@product']);
 });
 
-
-
-
-

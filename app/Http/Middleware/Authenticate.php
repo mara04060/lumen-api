@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Log;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -36,9 +37,15 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
-        }
+            $log = new Log();
+            $log->description = 'Пользователь незарегистрирован. Доступ был запрещен.';
+            $log->type = 'log';
+            $log->level = 'error';
+            $log->token = getallheaders()['Authorization'];
+            $log->save();
 
+            return response()->json(['error' => 'Forbidden'], 403, ['Content-Type' => 'application/json; charset=UTF-8']);
+        }
         return $next($request);
     }
 }
