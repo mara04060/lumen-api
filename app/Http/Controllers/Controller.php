@@ -107,4 +107,10 @@ class Controller extends BaseController
 
         return response()->json(['error' => 'no'], 201, ['Content-Type' => 'application/json; charset=UTF-8']);
     }
+
+    public function error ()
+    {
+        return response()->json(['error' => 'Bad Request'], 400, ['Content-Type' => 'application/json; charset=UTF-8']);
+
+    }
 }

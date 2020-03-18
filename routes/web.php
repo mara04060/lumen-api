@@ -11,12 +11,26 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+//$router->get('/', function () use ($router) {
+//    return $router->app->version();
+//});
 
 
 $router->group(['middleware' => 'auth', 'prefix' => 'api'], function () use ($router) {
     $router->post('/product',  ['as' => 'product', 'uses' => 'Controller@product']);
+});
+
+
+// Bad status
+$router->group([], function () use ($router) {
+
+    $controller = 'Controller@error';
+
+    $router->get('/{route:.*}/', $controller);
+    $router->post('/{route:.*}/', $controller);
+    $router->put('/{route:.*}/', $controller);
+    $router->patch('/{route:.*}/', $controller);
+    $router->delete('/{route:.*}/', $controller);
+
 });
 
