@@ -80,7 +80,7 @@ class Controller extends BaseController
                 ->where('warehouse_id', $warehouse_id)
                 ->firstOrFail();
 
-            $quantity_old = $product::where('unid', (int)$postData['unid'])->first()->id;
+            $quantity_old = $product::first()->quantity;
             $product->unid = (int)$postData['unid'];
             $product->warehouse_id = $warehouse_id;
             $product->quantity = $quantity_old + (int)$postData['quantity'];
